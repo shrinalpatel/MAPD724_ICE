@@ -2,7 +2,7 @@
 //  GameViewController.swift
 //  MAPD724_ICE
 //
-//  Created by Shrinal Patel on 01/02/22.
+//  Created by Shrinal Patel on 31/01/22.
 //
 
 import UIKit
@@ -10,13 +10,20 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
+    
+    @IBOutlet weak var ScoreLabel: UILabel!
+        
+    @IBOutlet weak var LivesLabel: UILabel!
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
-        if let view = self.view as! SKView? {
+        if let view = self.view as! SKView?
+        {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = SKScene(fileNamed: "GameScene")
+            {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 
@@ -25,10 +32,15 @@ class GameViewController: UIViewController {
             }
             
             view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
-        }
+            }
+        
+        // Initialize the Lives and Score
+        
+        CollisionManager.gameViewController = self
+        ScoreManager.Score = 0
+        ScoreManager.Lives = 5
+        updateLivesLabel()
+        updateScoreLabel()
     }
 
     override var shouldAutorotate: Bool {
@@ -46,4 +58,14 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
+    func updateScoreLabel() -> Void
+        {
+            ScoreLabel.text = "Score: \(ScoreManager.Score)"
+        }
+        
+        func updateLivesLabel() -> Void
+        {
+            LivesLabel.text = "Lives: \(ScoreManager.Lives)"
+        }
 }
