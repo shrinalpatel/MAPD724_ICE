@@ -16,7 +16,9 @@ var screenHeight: CGFloat?
 
 class GameScene: SKScene
 {
-    // instance variables
+    var gameManager: GameManager?
+    
+    // Instance variables
     var ocean: Ocean?
     var island: Island?
     var plane: Plane?
@@ -125,5 +127,10 @@ class GameScene: SKScene
         
         CollisionManager.SquaredRadiusCheck(scene: self, object1: plane!, object2: island!)
         
+        // For Game Over
+        if(ScoreManager.Lives < 1)
+                {
+                    gameManager?.PresentEndScene()
+                }
     }
 }
